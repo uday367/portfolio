@@ -162,3 +162,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+const progressBar = document.getElementById("progress-bar");
+
+window.addEventListener("scroll", () => {
+  const scroll = document.documentElement.scrollTop;
+
+  const height =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+
+  const progress = (scroll / height) * 100;
+
+  progressBar.style.width = progress + "%";
+});
+const form = document.getElementById("contact-form");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  emailjs
+    .sendForm("service_9spqex9", "template_52uxl5r", this)
+    .then(() => {
+      alert(
+        "✅ Thank you! Your message has been sent successfully. I'll get back to you soon.",
+      );
+
+      form.reset();
+    })
+    .catch((error) => {
+      alert("Failed to send message.");
+
+      console.log(error);
+    });
+});
